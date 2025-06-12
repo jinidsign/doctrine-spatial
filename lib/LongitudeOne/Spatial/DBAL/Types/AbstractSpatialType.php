@@ -242,7 +242,7 @@ abstract class AbstractSpatialType extends Type implements DoctrineSpatialTypeIn
      */
     private function getSpatialPlatform(AbstractPlatform $platform): PlatformInterface
     {
-        if ($platform instanceof MySQLPlatform) {
+        if ($platform instanceof MySQLPlatform || $platform instanceof MariaDBPlatform) {
             return new MySql();
         }
 
