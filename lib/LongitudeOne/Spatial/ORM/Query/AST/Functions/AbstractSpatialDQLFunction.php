@@ -20,6 +20,8 @@ namespace LongitudeOne\Spatial\ORM\Query\AST\Functions;
 
 use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
+use Doctrine\DBAL\Platforms\MariaDBPlatform;
+use Doctrine\DBAL\Platforms\MySQLPlatform;
 use Doctrine\Deprecations\Deprecation;
 use Doctrine\ORM\Query\AST\ASTException;
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
@@ -185,7 +187,7 @@ abstract class AbstractSpatialDQLFunction extends FunctionNode
         }
 
         foreach ($this->getPlatforms() as $acceptedPlatform) {
-            if ($platform instanceof $acceptedPlatform) {
+            if ($platform instanceof $acceptedPlatform || ($platform instanceof MariaDBPlatform && $acceptedPlatform === MySQLPlatform::class)) {
                 return true;
             }
         }
